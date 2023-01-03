@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  db:
+    container_name: mydbcontainer
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: p@ssw0rd
+      MYSQL_DATABASE: mydb
+    volumes:
+      - ./data:/var/lib/mysql
+
+  dbclient:
+    container_name: dbclient
+    image: mysql:latest
+    depends_on:
+      - db
+    command: mysql -uroot -pp@ssw0rd -hdb
